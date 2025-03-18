@@ -1,4 +1,4 @@
-# Gradia-LearnAI
+# 📑 Gradia-LearnAI
 프로젝트 이름: Gradia-LearnAI (Gradual + Idea + AI + Learn: 점진적 학습을 돕는 AI 프로젝트)
 
 1. 주제

@@ -48,3 +48,16 @@ Python (주요 라이브러리: transformers, spaCy, NLTK, PyTorch/TensorFlow)
 긴 문서를 효과적으로 학습할 수 있는 AI 기반 시스템 제공
 단계별 학습을 통해 기억 유지 및 이해도 향상
 개인 맞춤형 학습으로 효율성 극대화
+
+Gradia-LearnAI/
+│── main.py          # 실행 파일
+│── requirements.txt # 필요한 라이브러리 목록
+│── modules/
+│    ├── file_handler.py  # 파일 업로드 및 검증
+│    ├── text_extractor.py # 문서에서 텍스트 추출
+│    ├── keyword_extractor.py # 키워드 추출
+│    ├── summarizer.py # AI 요약 기능
+│    ├── db_handler.py # 데이터베이스 연동
+│── data/
+│    ├── sample.pdf  # 테스트용 파일
+│── README.md  # 프로젝트 설명

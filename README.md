@@ -57,3 +57,31 @@ Gradia-LearnAI/
 │── data/
 │    ├── sample.pdf  # 테스트용 파일
 │── README.md  # 프로젝트 설명
+
+[사용자] ← 파일 업로드 (PDF / DOCX)
+   │
+   ▼
+[Flask API: analyze.py]  ← 분석 요청 (/analyze)
+   │
+   ├── ① [파일 텍스트 추출]
+   │       └── modules/file_handler.py
+   │       └── extract_text(file, filename)
+   │       └── ➡ PDF → 텍스트
+   │           ➡ DOCX → 텍스트
+   │
+   ├── ② [키워드 추출]
+   │       └── modules/keyword_extractor.py
+   │       └── extract_keywords(text)
+   │       └── ➡ spaCy로 명사 / 고유명사 추출
+   │
+   ├── ③ [텍스트 요약]
+   │       └── modules/summarizer.py
+   │       └── summarize_text(text)
+   │       └── ➡ Transformers로 요약 생성
+   │
+   ▼
+[결과 반환]
+   └── text (전체 내용)
+   └── keywords (핵심 키워드 목록)
+   └── summary (요약된 내용)
+

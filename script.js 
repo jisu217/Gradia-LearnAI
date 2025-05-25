@@ -1,0 +1,88 @@
+// HTML 요소 선택하기
+const uploadBtn = document.getElementById('uploadBtn');        // 업로드 버튼
+const fileInput = document.getElementById('fileInput');        // 숨겨진 파일 입력(input)
+const historySection = document.getElementById('historySection');  // 학습 이력 섹션
+const stepsSection = document.getElementById('stepsSection');      // 단계별 내용 섹션
+const stepButtons = document.querySelectorAll('.step-btn');     // 단계 이동 버튼들
+const stepContents = document.querySelectorAll('.step-content'); // 단계별 내용 영역들
+let currentStep = null;  // 현재 활성화된 단계 (없으면 null)
+
+// 업로드 버튼 클릭하면 파일 선택창 열기
+uploadBtn.addEventListener('click', () => {
+  fileInput.click();  // 숨겨진 input[type=file] 클릭 이벤트 발생
+});
+
+// 파일이 선택되었을 때 처리
+fileInput.addEventListener('change', () => {
+  if (fileInput.files.length > 0) {  // 파일이 하나라도 선택되었으면
+    const file = fileInput.files[0];  // 첫 번째 파일 선택
+    const reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
+
+    // 파일 읽기가 완료되었을 때 실행할 함수
+    reader.onload = (e) => {
+      const text = e.target.result; // 읽은 파일 내용 (텍스트)
+      console.log('파일 내용:', text);
+
+      // 1단계 영역에 파일에서 읽은 텍스트 일부를 보여주고 버튼 추가
+      const step1Div = document.getElementById('step1');
+      step1Div.innerHTML = `
+        <div class="step-item">파일에서 읽은 텍스트 일부: ${text.slice(0, 100)}...</div>
+        <div class="step-controls">
+          <button onclick="prevStep()">◀️ 이전 단계</button>
+          <button onclick="saveProgress(1)">💾 학습 이력 저장</button>
+        </div>
+      `;
+
+      // UI 전환: 학습 이력 숨기고 단계별 섹션 보여주기
+      historySection.style.display = 'none';
+      stepsSection.style.display = 'block';
+
+      // 현재 단계를 1로 설정하고, 모든 단계 내용 숨긴 후 1단계만 보이게 처리
+      currentStep = '1';
+      stepContents.forEach(content => content.classList.remove('active'));
+      step1Div.classList.add('active');
+    };
+
+    // 텍스트 파일로 읽기 시작
+    reader.readAsText(file);
+  }
+});
+
+// 단계 버튼(키워드 추출, 개념 1, 정리, 개념 2 등) 클릭 시 해당 단계 내용 표시
+stepButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const step = btn.getAttribute('data-step'); // 버튼에 지정된 단계 번호 읽기
+    // 모든 단계 내용 숨기기
+    stepContents.forEach(content => content.classList.remove('active'));
+    // 클릭한 단계만 보여주기
+    document.getElementById('step' + step).classList.add('active');
+    currentStep = step; // 현재 단계 번호 갱신
+  });
+});
+
+// 이전 단계 버튼 클릭 시 현재 단계 숨기고 currentStep 초기화
+function prevStep() {
+  if(currentStep) {
+    document.getElementById('step' + currentStep).classList.remove('active');
+    currentStep = null;
+  }
+}
+
+// 학습 이력 저장 버튼 클릭 시 실행 (현재는 알림창만 띄움)
+function saveProgress(step) {
+  alert(`학습 이력 저장: ${step}단계 내용 저장 기능 구현 예정`);
+}
+
+// 즐겨찾기 별 아이콘 토글 함수
+function toggleStar(elem) {
+  const isStarred = elem.getAttribute('data-starred') === 'true'; // 현재 상태 확인
+  if(isStarred) {
+    elem.setAttribute('data-starred', 'false'); // 상태 false로 변경
+    elem.classList.remove('active');            // 활성화 클래스 제거
+    elem.textContent = '☆';                      // 빈 별로 표시
+  } else {
+    elem.setAttribute('data-starred', 'true');  // 상태 true로 변경
+    elem.classList.add('active');                // 활성화 클래스 추가
+    elem.textContent = '⭐';                      // 꽉 찬 별로 표시
+  }
+}

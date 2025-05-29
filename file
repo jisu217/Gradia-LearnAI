@@ -1,6 +1,5 @@
 1. modules/ 폴더
 여러 기능별 파이썬 코드들이 들어있는 곳
-
 file_handler.py → 파일을 올리거나 저장하는 기능
 history_manager.py → 사용자의 학습 기록 관리
 keyword_extractor.py → 문서에서 중요한 단어(키워드) 뽑아내는 기능
@@ -8,7 +7,6 @@ summarizer.py → 문서를 요약하는 기능
 
 2. Droutes/ 폴더
 웹페이지에서 어떤 행동을 했을 때(요청을 보냈을 때) 처리하는 코드
-
 upload_routes.py → 파일 올리기 요청 처리
 analyze_routes.py → 분석 요청 처리
 history_routes.py → 학습 기록 요청 처리
@@ -21,6 +19,7 @@ script.js → 웹페이지 동작(버튼 클릭, 화면 전환 등)을 담당
 4. templates/ 폴더
 웹페이지 화면 구성하는 HTML 파일들이 들어있어
 upload.html → 사용자가 파일 올리는 화면
+
 5. venv/ 폴더
 파이썬 가상환경
 프로젝트에 필요한 라이브러리(코드 조각)만 따로 관리하는 공간

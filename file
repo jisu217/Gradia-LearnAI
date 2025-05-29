@@ -12,12 +12,10 @@ analyze_routes.py → 분석 요청 처리
 history_routes.py → 학습 기록 요청 처리
 
 3. static/ 폴더
-웹페이지를 예쁘게 꾸미거나 작동하게 하는 정적 파일들이 들어있어
 style.css → 웹페이지 디자인(색, 글꼴, 배치 등) 담당
 script.js → 웹페이지 동작(버튼 클릭, 화면 전환 등)을 담당
 
 4. templates/ 폴더
-웹페이지 화면 구성하는 HTML 파일들이 들어있어
 upload.html → 사용자가 파일 올리는 화면
 
 5. venv/ 폴더

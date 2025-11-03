@@ -33,6 +33,15 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Swagger (Springdoc OpenAPI)
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+
+    // Jakarta Validation (NotNull, Valid 등)
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+
+    // PDF 파일 텍스트 추출용 Apache PDFBox
+    implementation 'org.apache.pdfbox:pdfbox:2.0.29'
 }
 
 tasks.named('test') {

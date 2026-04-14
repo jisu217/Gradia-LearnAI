@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import FileUpload from './components/FileUpload';
 import LearningHistory from './components/LearningHistory';
-import StepContent from './components/StepContent';
-import MemoBox from './components/MemoBox';
+import StepContent from './components/Step/StepContent';
+import MemoBox from './components/Memo/MemoBox'; 
 import { useLocalStorage } from './hooks/useLocalStorage';
-import { processFile } from './utils/fileProcessor';
+import { readFile } from './utils/file/fileProcessor';
 import './App.css';
 
 const App = () => {
@@ -45,9 +45,15 @@ const App = () => {
     setCurrentStep(null);
 
     try {
-      const result = await processFile(file);
-      setExtractedText(result.text);
-      setAnalysisData(result.analysis);
+      const content = await readFile(file);
+
+      setExtractedText(content);
+      setAnalysisData({
+        keywords: [],
+        concepts1: [],
+        concepts2: [],
+        summary: ''
+});
     } catch (error) {
       console.error('파일 처리 중 오류:', error);
       alert('파일 처리 중 오류가 발생했습니다.');

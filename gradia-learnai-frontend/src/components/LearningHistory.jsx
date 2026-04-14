@@ -1,10 +1,9 @@
 // 학습 이력 컴포넌트
-// 사용자가 업로드한 파일과 관련된 학습 단계를 기록하고 표시하는 UI 컴포넌트
+
 import React from 'react';
 import { BookOpen, Trash2 } from 'lucide-react';
 
 const LearningHistory = ({ history, onClearHistory }) => {
-  // 타임스탬프를 보기 좋은 형식으로 변환
   const formatDate = (timestamp) => {
     return new Date(timestamp).toLocaleDateString('ko-KR', {
       year: 'numeric',
@@ -26,7 +25,7 @@ const LearningHistory = ({ history, onClearHistory }) => {
         {/* 학습 이력이 있을 때만 전체 삭제 버튼 표시 */}
         {history.length > 0 && (
           <button
-            onClick={onClearHistory} // 전체 삭제 이벤트
+            onClick={onClearHistory}
             className="text-red-500 hover:text-red-700 transition-colors p-2"
             title="전체 삭제"
           >
@@ -59,18 +58,18 @@ const LearningHistory = ({ history, onClearHistory }) => {
                   {/* 학습 단계 표시 */}
                   <div className="flex items-center gap-2 mb-2">
                     <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">
-                      {item.step}단계
+                      {item.step} 단계
                     </span>
                   </div>
 
-                  {/* 키워드가 있는 경우 표시 */}
+                  {/* 키워드가 있는 경우 */}
                   {item.keywords && item.keywords.length > 0 && (
                     <div className="text-xs text-gray-600 mb-1">
                       <span className="font-medium">키워드:</span> {item.keywords.join(', ')}
                     </div>
                   )}
 
-                  {/* 요약이 있는 경우 표시 */}
+                  {/* 요약이 있는 경우 */}
                   {item.summary && (
                     <div className="text-xs text-gray-600">
                       <span className="font-medium">요약:</span> {item.summary}
@@ -81,7 +80,7 @@ const LearningHistory = ({ history, onClearHistory }) => {
             </div>
           </div>
         ) : (
-          // 학습 이력이 없는 경우 안내 메시지
+          // 학습 이력이 없는 경우
           <div className="text-center py-12">
             <BookOpen size={48} className="mx-auto text-gray-300 mb-4" />
             <p className="text-gray-500 mb-2">저장된 학습 이력이 없습니다.</p>

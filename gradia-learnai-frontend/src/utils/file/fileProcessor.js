@@ -1,17 +1,47 @@
-// utils/file/fileProcessor.js
+// 파일 업로드 후, 키워드 추출 - 개념 정의 - 개념 설명 - 문서 요약
 
-export const readFile = (file) => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
+import { extractTextFromFile } from './fileReader';
+import { validateFile } from './fileValidator';
 
-    reader.onload = (e) => {
-      resolve(e.target.result);
+import { extractKeywords } from '../ai/extractor';
+import { summarizeText } from '../ai/summarizer';
+import { defineConcepts } from '../ai/definer';
+import { explainConcepts } from '../ai/explainer';
+
+export const processFile = async (file) => {
+  try {
+    // 파일 검증
+    const validation = validateFile(file);
+
+    if (!validation.isValid) {
+      throw new Error(validation.errors.join(', '));
+    }
+
+    // 파일 → 텍스트
+    const text = await extractTextFromFile(file);
+
+    // 1. 키워드 추출
+    const keywords = extractKeywords(text);
+
+    const concepts = keywords.map(keyword => ({
+      keyword,
+      definition: defineConcepts(keyword), // 2. 개념 정의
+      explanation: explainConcepts(keyword) // 3. 개념 설명
+    }));
+
+    // 4. 문서 요약
+    const summary = summarizeText(text);
+
+    // 최종 반환
+    return {
+      text,
+      keywords,
+      concepts,
+      summary
     };
 
-    reader.onerror = (e) => {
-      reject(e);
-    };
-
-    reader.readAsText(file);
-  });
+  } catch (error) {
+    console.error('File processing error:', error);
+    throw new Error(error.message || '파일 처리 중 오류가 발생했습니다.');
+  }
 };
